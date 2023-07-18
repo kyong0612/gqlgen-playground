@@ -65,6 +65,9 @@ BEGIN
 END
 $$;
 
+CREATE ROLE root LOGIN CREATEDB CREATEROLE PASSWORD 'password';
+
+
 INSERT INTO users(id, name) VALUES
 	('U_1', 'hsaki');
 

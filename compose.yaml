@@ -27,7 +27,7 @@ services:
 #         condition: service_healthy
   db:
     container_name: db
-    image: postgres
+    image: postgres:latest
     restart: always
     # secrets:
     #   - db-password
