@@ -16,3 +16,7 @@
 
 # output
 gqlgen-playground
+
+
+# db volume
+postgres/db-data
