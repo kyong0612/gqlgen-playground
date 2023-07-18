@@ -1,0 +1,12 @@
+wipe     = true
+no-tests = true
+add-enum-types = true
+output = "infra/db/model"
+
+[psql]
+  dbname = "example"
+  host   = "localhost"
+  port   = 5432
+  user   = "pguser"
+  pass   = "pgpass"
+  sslmode = "disable"

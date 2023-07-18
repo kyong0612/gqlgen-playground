@@ -1,6 +1,6 @@
 
-.PHONY: gen
-gen:
+.PHONY: generate.gqlgen
+generate.gqlgen:
 	go run github.com/99designs/gqlgen generate
 
 
@@ -21,3 +21,7 @@ compose.reset:
 	rm -rf postgres/db-data
 	make compose.down 
 	make compose.up
+
+.PHONY: generate.sqlboiler
+generate.sqlboiler:
+	go run github.com/volatiletech/sqlboiler/v4 --config=sqlboiler.toml psql
