@@ -2,7 +2,6 @@ package main
 
 import (
 	"gqlgen-playground/graph"
-	"gqlgen-playground/graph/generated"
 	"log"
 	"net/http"
 	"os"
@@ -19,7 +18,7 @@ func main() {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
 	http.Handle("/", playground.ApolloSandboxHandler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
