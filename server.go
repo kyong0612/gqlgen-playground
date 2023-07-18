@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gqlgen-demo/graph"
-	"gqlgen-demo/graph/generated"
+	"gqlgen-playground/graph"
+	"gqlgen-playground/graph/generated"
 	"log"
 	"net/http"
 	"os"

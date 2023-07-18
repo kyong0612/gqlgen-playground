@@ -1,6 +1,6 @@
 package graph
 
-import "gqlgen-demo/graph/model"
+import "gqlgen-playground/graph/model"
 
 // This file will not be regenerated automatically.
 //
