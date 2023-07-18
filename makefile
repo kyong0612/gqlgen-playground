@@ -2,7 +2,7 @@
 .PHONY: generate.gqlgen
 generate.gqlgen:
 	go run github.com/99designs/gqlgen generate
-
+	go mod tidy
 
 .PHONY: run
 run:
@@ -25,3 +25,4 @@ compose.reset:
 .PHONY: generate.sqlboiler
 generate.sqlboiler:
 	go run github.com/volatiletech/sqlboiler/v4 --config=sqlboiler.toml psql
+	go mod tidy

@@ -4,8 +4,8 @@ schema:
 
 # Where should the generated server code go?
 exec:
-  filename: graph/generated.go
-  package: graph
+  filename: graph/gql/generated.go
+  package: gql
 
 # Uncomment to enable federation
 # federation:
@@ -14,8 +14,8 @@ exec:
 
 # Where should any generated models go?
 model:
-  filename: graph/models_gen.go
-  package: graph
+  filename: graph/gql/models_gen.go
+  package: gql
 
 # Where should the resolver implementations go?
 resolver:
