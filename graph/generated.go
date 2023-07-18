@@ -8,7 +8,6 @@ import (
 	"embed"
 	"errors"
 	"fmt"
-	"gqlgen-playground/graph/model"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -74,7 +73,7 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		AddProjectV2ItemByID func(childComplexity int, input model.AddProjectV2ItemByIDInput) int
+		AddProjectV2ItemByID func(childComplexity int, input AddProjectV2ItemByIDInput) int
 	}
 
 	PageInfo struct {
@@ -172,12 +171,12 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	AddProjectV2ItemByID(ctx context.Context, input model.AddProjectV2ItemByIDInput) (*model.AddProjectV2ItemByIDPayload, error)
+	AddProjectV2ItemByID(ctx context.Context, input AddProjectV2ItemByIDInput) (*AddProjectV2ItemByIDPayload, error)
 }
 type QueryResolver interface {
-	Repository(ctx context.Context, name string, owner string) (*model.Repository, error)
-	User(ctx context.Context, name string) (*model.User, error)
-	Node(ctx context.Context, id string) (model.Node, error)
+	Repository(ctx context.Context, name string, owner string) (*Repository, error)
+	User(ctx context.Context, name string) (*User, error)
+	Node(ctx context.Context, id string) (Node, error)
 }
 
 type executableSchema struct {
@@ -315,7 +314,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddProjectV2ItemByID(childComplexity, args["input"].(model.AddProjectV2ItemByIDInput)), true
+		return e.complexity.Mutation.AddProjectV2ItemByID(childComplexity, args["input"].(AddProjectV2ItemByIDInput)), true
 
 	case "PageInfo.endCursor":
 		if e.complexity.PageInfo.EndCursor == nil {
@@ -920,10 +919,10 @@ func (ec *executionContext) field_Issue_projectItems_args(ctx context.Context, r
 func (ec *executionContext) field_Mutation_addProjectV2ItemById_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.AddProjectV2ItemByIDInput
+	var arg0 AddProjectV2ItemByIDInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddProjectV2ItemByIdInput2gqlgenᚑplaygroundᚋgraphᚋmodelᚐAddProjectV2ItemByIDInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddProjectV2ItemByIdInput2gqlgenᚑplaygroundᚋgraphᚐAddProjectV2ItemByIDInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1294,7 +1293,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _AddProjectV2ItemByIdPayload_item(ctx context.Context, field graphql.CollectedField, obj *model.AddProjectV2ItemByIDPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddProjectV2ItemByIdPayload_item(ctx context.Context, field graphql.CollectedField, obj *AddProjectV2ItemByIDPayload) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_AddProjectV2ItemByIdPayload_item(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1317,9 +1316,9 @@ func (ec *executionContext) _AddProjectV2ItemByIdPayload_item(ctx context.Contex
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.ProjectV2Item)
+	res := resTmp.(*ProjectV2Item)
 	fc.Result = res
-	return ec.marshalOProjectV2Item2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Item(ctx, field.Selections, res)
+	return ec.marshalOProjectV2Item2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Item(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_AddProjectV2ItemByIdPayload_item(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1343,7 +1342,7 @@ func (ec *executionContext) fieldContext_AddProjectV2ItemByIdPayload_item(ctx co
 	return fc, nil
 }
 
-func (ec *executionContext) _Issue_id(ctx context.Context, field graphql.CollectedField, obj *model.Issue) (ret graphql.Marshaler) {
+func (ec *executionContext) _Issue_id(ctx context.Context, field graphql.CollectedField, obj *Issue) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Issue_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1387,7 +1386,7 @@ func (ec *executionContext) fieldContext_Issue_id(ctx context.Context, field gra
 	return fc, nil
 }
 
-func (ec *executionContext) _Issue_url(ctx context.Context, field graphql.CollectedField, obj *model.Issue) (ret graphql.Marshaler) {
+func (ec *executionContext) _Issue_url(ctx context.Context, field graphql.CollectedField, obj *Issue) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Issue_url(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1431,7 +1430,7 @@ func (ec *executionContext) fieldContext_Issue_url(ctx context.Context, field gr
 	return fc, nil
 }
 
-func (ec *executionContext) _Issue_title(ctx context.Context, field graphql.CollectedField, obj *model.Issue) (ret graphql.Marshaler) {
+func (ec *executionContext) _Issue_title(ctx context.Context, field graphql.CollectedField, obj *Issue) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Issue_title(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1475,7 +1474,7 @@ func (ec *executionContext) fieldContext_Issue_title(ctx context.Context, field 
 	return fc, nil
 }
 
-func (ec *executionContext) _Issue_closed(ctx context.Context, field graphql.CollectedField, obj *model.Issue) (ret graphql.Marshaler) {
+func (ec *executionContext) _Issue_closed(ctx context.Context, field graphql.CollectedField, obj *Issue) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Issue_closed(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1519,7 +1518,7 @@ func (ec *executionContext) fieldContext_Issue_closed(ctx context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _Issue_number(ctx context.Context, field graphql.CollectedField, obj *model.Issue) (ret graphql.Marshaler) {
+func (ec *executionContext) _Issue_number(ctx context.Context, field graphql.CollectedField, obj *Issue) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Issue_number(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1563,7 +1562,7 @@ func (ec *executionContext) fieldContext_Issue_number(ctx context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _Issue_author(ctx context.Context, field graphql.CollectedField, obj *model.Issue) (ret graphql.Marshaler) {
+func (ec *executionContext) _Issue_author(ctx context.Context, field graphql.CollectedField, obj *Issue) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Issue_author(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1589,9 +1588,9 @@ func (ec *executionContext) _Issue_author(ctx context.Context, field graphql.Col
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.User)
+	res := resTmp.(*User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgqlgenᚑplaygroundᚋgraphᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Issue_author(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1617,7 +1616,7 @@ func (ec *executionContext) fieldContext_Issue_author(ctx context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _Issue_repository(ctx context.Context, field graphql.CollectedField, obj *model.Issue) (ret graphql.Marshaler) {
+func (ec *executionContext) _Issue_repository(ctx context.Context, field graphql.CollectedField, obj *Issue) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Issue_repository(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1643,9 +1642,9 @@ func (ec *executionContext) _Issue_repository(ctx context.Context, field graphql
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Repository)
+	res := resTmp.(*Repository)
 	fc.Result = res
-	return ec.marshalNRepository2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐRepository(ctx, field.Selections, res)
+	return ec.marshalNRepository2ᚖgqlgenᚑplaygroundᚋgraphᚐRepository(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Issue_repository(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1679,7 +1678,7 @@ func (ec *executionContext) fieldContext_Issue_repository(ctx context.Context, f
 	return fc, nil
 }
 
-func (ec *executionContext) _Issue_projectItems(ctx context.Context, field graphql.CollectedField, obj *model.Issue) (ret graphql.Marshaler) {
+func (ec *executionContext) _Issue_projectItems(ctx context.Context, field graphql.CollectedField, obj *Issue) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Issue_projectItems(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1705,9 +1704,9 @@ func (ec *executionContext) _Issue_projectItems(ctx context.Context, field graph
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.ProjectV2ItemConnection)
+	res := resTmp.(*ProjectV2ItemConnection)
 	fc.Result = res
-	return ec.marshalNProjectV2ItemConnection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemConnection(ctx, field.Selections, res)
+	return ec.marshalNProjectV2ItemConnection2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2ItemConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Issue_projectItems(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1744,7 +1743,7 @@ func (ec *executionContext) fieldContext_Issue_projectItems(ctx context.Context,
 	return fc, nil
 }
 
-func (ec *executionContext) _IssueConnection_edges(ctx context.Context, field graphql.CollectedField, obj *model.IssueConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _IssueConnection_edges(ctx context.Context, field graphql.CollectedField, obj *IssueConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_IssueConnection_edges(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1767,9 +1766,9 @@ func (ec *executionContext) _IssueConnection_edges(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.IssueEdge)
+	res := resTmp.([]*IssueEdge)
 	fc.Result = res
-	return ec.marshalOIssueEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssueEdge(ctx, field.Selections, res)
+	return ec.marshalOIssueEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐIssueEdge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_IssueConnection_edges(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1791,7 +1790,7 @@ func (ec *executionContext) fieldContext_IssueConnection_edges(ctx context.Conte
 	return fc, nil
 }
 
-func (ec *executionContext) _IssueConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *model.IssueConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _IssueConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *IssueConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_IssueConnection_nodes(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1814,9 +1813,9 @@ func (ec *executionContext) _IssueConnection_nodes(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Issue)
+	res := resTmp.([]*Issue)
 	fc.Result = res
-	return ec.marshalOIssue2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssue(ctx, field.Selections, res)
+	return ec.marshalOIssue2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐIssue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_IssueConnection_nodes(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1850,7 +1849,7 @@ func (ec *executionContext) fieldContext_IssueConnection_nodes(ctx context.Conte
 	return fc, nil
 }
 
-func (ec *executionContext) _IssueConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *model.IssueConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _IssueConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *IssueConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_IssueConnection_pageInfo(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1876,9 +1875,9 @@ func (ec *executionContext) _IssueConnection_pageInfo(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.PageInfo)
+	res := resTmp.(*PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚐPageInfo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_IssueConnection_pageInfo(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1904,7 +1903,7 @@ func (ec *executionContext) fieldContext_IssueConnection_pageInfo(ctx context.Co
 	return fc, nil
 }
 
-func (ec *executionContext) _IssueConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *model.IssueConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _IssueConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *IssueConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_IssueConnection_totalCount(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1948,7 +1947,7 @@ func (ec *executionContext) fieldContext_IssueConnection_totalCount(ctx context.
 	return fc, nil
 }
 
-func (ec *executionContext) _IssueEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *model.IssueEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _IssueEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *IssueEdge) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_IssueEdge_cursor(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1992,7 +1991,7 @@ func (ec *executionContext) fieldContext_IssueEdge_cursor(ctx context.Context, f
 	return fc, nil
 }
 
-func (ec *executionContext) _IssueEdge_node(ctx context.Context, field graphql.CollectedField, obj *model.IssueEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _IssueEdge_node(ctx context.Context, field graphql.CollectedField, obj *IssueEdge) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_IssueEdge_node(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2015,9 +2014,9 @@ func (ec *executionContext) _IssueEdge_node(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Issue)
+	res := resTmp.(*Issue)
 	fc.Result = res
-	return ec.marshalOIssue2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssue(ctx, field.Selections, res)
+	return ec.marshalOIssue2ᚖgqlgenᚑplaygroundᚋgraphᚐIssue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_IssueEdge_node(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2065,7 +2064,7 @@ func (ec *executionContext) _Mutation_addProjectV2ItemById(ctx context.Context, 
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddProjectV2ItemByID(rctx, fc.Args["input"].(model.AddProjectV2ItemByIDInput))
+		return ec.resolvers.Mutation().AddProjectV2ItemByID(rctx, fc.Args["input"].(AddProjectV2ItemByIDInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2074,9 +2073,9 @@ func (ec *executionContext) _Mutation_addProjectV2ItemById(ctx context.Context, 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.AddProjectV2ItemByIDPayload)
+	res := resTmp.(*AddProjectV2ItemByIDPayload)
 	fc.Result = res
-	return ec.marshalOAddProjectV2ItemByIdPayload2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐAddProjectV2ItemByIDPayload(ctx, field.Selections, res)
+	return ec.marshalOAddProjectV2ItemByIdPayload2ᚖgqlgenᚑplaygroundᚋgraphᚐAddProjectV2ItemByIDPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_addProjectV2ItemById(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2107,7 +2106,7 @@ func (ec *executionContext) fieldContext_Mutation_addProjectV2ItemById(ctx conte
 	return fc, nil
 }
 
-func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *model.PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *PageInfo) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PageInfo_endCursor(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2148,7 +2147,7 @@ func (ec *executionContext) fieldContext_PageInfo_endCursor(ctx context.Context,
 	return fc, nil
 }
 
-func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *model.PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *PageInfo) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PageInfo_hasNextPage(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2192,7 +2191,7 @@ func (ec *executionContext) fieldContext_PageInfo_hasNextPage(ctx context.Contex
 	return fc, nil
 }
 
-func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field graphql.CollectedField, obj *model.PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field graphql.CollectedField, obj *PageInfo) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PageInfo_hasPreviousPage(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2236,7 +2235,7 @@ func (ec *executionContext) fieldContext_PageInfo_hasPreviousPage(ctx context.Co
 	return fc, nil
 }
 
-func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *model.PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *PageInfo) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PageInfo_startCursor(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2277,7 +2276,7 @@ func (ec *executionContext) fieldContext_PageInfo_startCursor(ctx context.Contex
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2_id(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2_id(ctx context.Context, field graphql.CollectedField, obj *ProjectV2) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2321,7 +2320,7 @@ func (ec *executionContext) fieldContext_ProjectV2_id(ctx context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2_title(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2_title(ctx context.Context, field graphql.CollectedField, obj *ProjectV2) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2_title(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2365,7 +2364,7 @@ func (ec *executionContext) fieldContext_ProjectV2_title(ctx context.Context, fi
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2_url(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2_url(ctx context.Context, field graphql.CollectedField, obj *ProjectV2) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2_url(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2409,7 +2408,7 @@ func (ec *executionContext) fieldContext_ProjectV2_url(ctx context.Context, fiel
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2_number(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2_number(ctx context.Context, field graphql.CollectedField, obj *ProjectV2) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2_number(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2453,7 +2452,7 @@ func (ec *executionContext) fieldContext_ProjectV2_number(ctx context.Context, f
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2_items(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2_items(ctx context.Context, field graphql.CollectedField, obj *ProjectV2) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2_items(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2479,9 +2478,9 @@ func (ec *executionContext) _ProjectV2_items(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.ProjectV2ItemConnection)
+	res := resTmp.(*ProjectV2ItemConnection)
 	fc.Result = res
-	return ec.marshalNProjectV2ItemConnection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemConnection(ctx, field.Selections, res)
+	return ec.marshalNProjectV2ItemConnection2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2ItemConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2_items(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2518,7 +2517,7 @@ func (ec *executionContext) fieldContext_ProjectV2_items(ctx context.Context, fi
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2_owner(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2_owner(ctx context.Context, field graphql.CollectedField, obj *ProjectV2) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2_owner(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2544,9 +2543,9 @@ func (ec *executionContext) _ProjectV2_owner(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.User)
+	res := resTmp.(*User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgqlgenᚑplaygroundᚋgraphᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2_owner(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2572,7 +2571,7 @@ func (ec *executionContext) fieldContext_ProjectV2_owner(ctx context.Context, fi
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2Connection_edges(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2Connection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2Connection_edges(ctx context.Context, field graphql.CollectedField, obj *ProjectV2Connection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2Connection_edges(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2595,9 +2594,9 @@ func (ec *executionContext) _ProjectV2Connection_edges(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.ProjectV2Edge)
+	res := resTmp.([]*ProjectV2Edge)
 	fc.Result = res
-	return ec.marshalOProjectV2Edge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Edge(ctx, field.Selections, res)
+	return ec.marshalOProjectV2Edge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Edge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2Connection_edges(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2619,7 +2618,7 @@ func (ec *executionContext) fieldContext_ProjectV2Connection_edges(ctx context.C
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2Connection_nodes(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2Connection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2Connection_nodes(ctx context.Context, field graphql.CollectedField, obj *ProjectV2Connection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2Connection_nodes(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2642,9 +2641,9 @@ func (ec *executionContext) _ProjectV2Connection_nodes(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.ProjectV2)
+	res := resTmp.([]*ProjectV2)
 	fc.Result = res
-	return ec.marshalOProjectV22ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2(ctx, field.Selections, res)
+	return ec.marshalOProjectV22ᚕᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2Connection_nodes(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2674,7 +2673,7 @@ func (ec *executionContext) fieldContext_ProjectV2Connection_nodes(ctx context.C
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2Connection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2Connection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2Connection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *ProjectV2Connection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2Connection_pageInfo(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2700,9 +2699,9 @@ func (ec *executionContext) _ProjectV2Connection_pageInfo(ctx context.Context, f
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.PageInfo)
+	res := resTmp.(*PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚐPageInfo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2Connection_pageInfo(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2728,7 +2727,7 @@ func (ec *executionContext) fieldContext_ProjectV2Connection_pageInfo(ctx contex
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2Connection_totalCount(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2Connection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2Connection_totalCount(ctx context.Context, field graphql.CollectedField, obj *ProjectV2Connection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2Connection_totalCount(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2772,7 +2771,7 @@ func (ec *executionContext) fieldContext_ProjectV2Connection_totalCount(ctx cont
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2Edge_cursor(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2Edge) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2Edge_cursor(ctx context.Context, field graphql.CollectedField, obj *ProjectV2Edge) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2Edge_cursor(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2816,7 +2815,7 @@ func (ec *executionContext) fieldContext_ProjectV2Edge_cursor(ctx context.Contex
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2Edge_node(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2Edge) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2Edge_node(ctx context.Context, field graphql.CollectedField, obj *ProjectV2Edge) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2Edge_node(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2839,9 +2838,9 @@ func (ec *executionContext) _ProjectV2Edge_node(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.ProjectV2)
+	res := resTmp.(*ProjectV2)
 	fc.Result = res
-	return ec.marshalOProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2(ctx, field.Selections, res)
+	return ec.marshalOProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2Edge_node(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2871,7 +2870,7 @@ func (ec *executionContext) fieldContext_ProjectV2Edge_node(ctx context.Context,
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2Item_id(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2Item) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2Item_id(ctx context.Context, field graphql.CollectedField, obj *ProjectV2Item) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2Item_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2915,7 +2914,7 @@ func (ec *executionContext) fieldContext_ProjectV2Item_id(ctx context.Context, f
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2Item_project(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2Item) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2Item_project(ctx context.Context, field graphql.CollectedField, obj *ProjectV2Item) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2Item_project(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2941,9 +2940,9 @@ func (ec *executionContext) _ProjectV2Item_project(ctx context.Context, field gr
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.ProjectV2)
+	res := resTmp.(*ProjectV2)
 	fc.Result = res
-	return ec.marshalNProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2(ctx, field.Selections, res)
+	return ec.marshalNProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2Item_project(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2973,7 +2972,7 @@ func (ec *executionContext) fieldContext_ProjectV2Item_project(ctx context.Conte
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2Item_content(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2Item) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2Item_content(ctx context.Context, field graphql.CollectedField, obj *ProjectV2Item) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2Item_content(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -2996,9 +2995,9 @@ func (ec *executionContext) _ProjectV2Item_content(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(model.ProjectV2ItemContent)
+	res := resTmp.(ProjectV2ItemContent)
 	fc.Result = res
-	return ec.marshalOProjectV2ItemContent2gqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemContent(ctx, field.Selections, res)
+	return ec.marshalOProjectV2ItemContent2gqlgenᚑplaygroundᚋgraphᚐProjectV2ItemContent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2Item_content(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3014,7 +3013,7 @@ func (ec *executionContext) fieldContext_ProjectV2Item_content(ctx context.Conte
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2ItemConnection_edges(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2ItemConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2ItemConnection_edges(ctx context.Context, field graphql.CollectedField, obj *ProjectV2ItemConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2ItemConnection_edges(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3037,9 +3036,9 @@ func (ec *executionContext) _ProjectV2ItemConnection_edges(ctx context.Context, 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.ProjectV2ItemEdge)
+	res := resTmp.([]*ProjectV2ItemEdge)
 	fc.Result = res
-	return ec.marshalOProjectV2ItemEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemEdge(ctx, field.Selections, res)
+	return ec.marshalOProjectV2ItemEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2ItemEdge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2ItemConnection_edges(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3061,7 +3060,7 @@ func (ec *executionContext) fieldContext_ProjectV2ItemConnection_edges(ctx conte
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2ItemConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2ItemConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2ItemConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *ProjectV2ItemConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2ItemConnection_nodes(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3084,9 +3083,9 @@ func (ec *executionContext) _ProjectV2ItemConnection_nodes(ctx context.Context, 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.ProjectV2Item)
+	res := resTmp.([]*ProjectV2Item)
 	fc.Result = res
-	return ec.marshalOProjectV2Item2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Item(ctx, field.Selections, res)
+	return ec.marshalOProjectV2Item2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Item(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2ItemConnection_nodes(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3110,7 +3109,7 @@ func (ec *executionContext) fieldContext_ProjectV2ItemConnection_nodes(ctx conte
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2ItemConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2ItemConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2ItemConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *ProjectV2ItemConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2ItemConnection_pageInfo(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3136,9 +3135,9 @@ func (ec *executionContext) _ProjectV2ItemConnection_pageInfo(ctx context.Contex
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.PageInfo)
+	res := resTmp.(*PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚐPageInfo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2ItemConnection_pageInfo(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3164,7 +3163,7 @@ func (ec *executionContext) fieldContext_ProjectV2ItemConnection_pageInfo(ctx co
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2ItemConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2ItemConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2ItemConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *ProjectV2ItemConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2ItemConnection_totalCount(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3208,7 +3207,7 @@ func (ec *executionContext) fieldContext_ProjectV2ItemConnection_totalCount(ctx 
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2ItemEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2ItemEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2ItemEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *ProjectV2ItemEdge) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2ItemEdge_cursor(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3252,7 +3251,7 @@ func (ec *executionContext) fieldContext_ProjectV2ItemEdge_cursor(ctx context.Co
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectV2ItemEdge_node(ctx context.Context, field graphql.CollectedField, obj *model.ProjectV2ItemEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectV2ItemEdge_node(ctx context.Context, field graphql.CollectedField, obj *ProjectV2ItemEdge) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectV2ItemEdge_node(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3275,9 +3274,9 @@ func (ec *executionContext) _ProjectV2ItemEdge_node(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.ProjectV2Item)
+	res := resTmp.(*ProjectV2Item)
 	fc.Result = res
-	return ec.marshalOProjectV2Item2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Item(ctx, field.Selections, res)
+	return ec.marshalOProjectV2Item2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Item(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2ItemEdge_node(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3301,7 +3300,7 @@ func (ec *executionContext) fieldContext_ProjectV2ItemEdge_node(ctx context.Cont
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequest_id(ctx context.Context, field graphql.CollectedField, obj *model.PullRequest) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequest_id(ctx context.Context, field graphql.CollectedField, obj *PullRequest) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequest_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3345,7 +3344,7 @@ func (ec *executionContext) fieldContext_PullRequest_id(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequest_baseRefName(ctx context.Context, field graphql.CollectedField, obj *model.PullRequest) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequest_baseRefName(ctx context.Context, field graphql.CollectedField, obj *PullRequest) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequest_baseRefName(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3389,7 +3388,7 @@ func (ec *executionContext) fieldContext_PullRequest_baseRefName(ctx context.Con
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequest_closed(ctx context.Context, field graphql.CollectedField, obj *model.PullRequest) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequest_closed(ctx context.Context, field graphql.CollectedField, obj *PullRequest) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequest_closed(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3433,7 +3432,7 @@ func (ec *executionContext) fieldContext_PullRequest_closed(ctx context.Context,
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequest_headRefName(ctx context.Context, field graphql.CollectedField, obj *model.PullRequest) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequest_headRefName(ctx context.Context, field graphql.CollectedField, obj *PullRequest) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequest_headRefName(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3477,7 +3476,7 @@ func (ec *executionContext) fieldContext_PullRequest_headRefName(ctx context.Con
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequest_url(ctx context.Context, field graphql.CollectedField, obj *model.PullRequest) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequest_url(ctx context.Context, field graphql.CollectedField, obj *PullRequest) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequest_url(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3521,7 +3520,7 @@ func (ec *executionContext) fieldContext_PullRequest_url(ctx context.Context, fi
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequest_number(ctx context.Context, field graphql.CollectedField, obj *model.PullRequest) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequest_number(ctx context.Context, field graphql.CollectedField, obj *PullRequest) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequest_number(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3565,7 +3564,7 @@ func (ec *executionContext) fieldContext_PullRequest_number(ctx context.Context,
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequest_repository(ctx context.Context, field graphql.CollectedField, obj *model.PullRequest) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequest_repository(ctx context.Context, field graphql.CollectedField, obj *PullRequest) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequest_repository(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3591,9 +3590,9 @@ func (ec *executionContext) _PullRequest_repository(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Repository)
+	res := resTmp.(*Repository)
 	fc.Result = res
-	return ec.marshalNRepository2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐRepository(ctx, field.Selections, res)
+	return ec.marshalNRepository2ᚖgqlgenᚑplaygroundᚋgraphᚐRepository(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_PullRequest_repository(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3627,7 +3626,7 @@ func (ec *executionContext) fieldContext_PullRequest_repository(ctx context.Cont
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequest_projectItems(ctx context.Context, field graphql.CollectedField, obj *model.PullRequest) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequest_projectItems(ctx context.Context, field graphql.CollectedField, obj *PullRequest) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequest_projectItems(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3653,9 +3652,9 @@ func (ec *executionContext) _PullRequest_projectItems(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.ProjectV2ItemConnection)
+	res := resTmp.(*ProjectV2ItemConnection)
 	fc.Result = res
-	return ec.marshalNProjectV2ItemConnection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemConnection(ctx, field.Selections, res)
+	return ec.marshalNProjectV2ItemConnection2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2ItemConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_PullRequest_projectItems(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3692,7 +3691,7 @@ func (ec *executionContext) fieldContext_PullRequest_projectItems(ctx context.Co
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequestConnection_edges(ctx context.Context, field graphql.CollectedField, obj *model.PullRequestConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequestConnection_edges(ctx context.Context, field graphql.CollectedField, obj *PullRequestConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequestConnection_edges(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3715,9 +3714,9 @@ func (ec *executionContext) _PullRequestConnection_edges(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.PullRequestEdge)
+	res := resTmp.([]*PullRequestEdge)
 	fc.Result = res
-	return ec.marshalOPullRequestEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequestEdge(ctx, field.Selections, res)
+	return ec.marshalOPullRequestEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐPullRequestEdge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_PullRequestConnection_edges(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3739,7 +3738,7 @@ func (ec *executionContext) fieldContext_PullRequestConnection_edges(ctx context
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequestConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *model.PullRequestConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequestConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *PullRequestConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequestConnection_nodes(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3762,9 +3761,9 @@ func (ec *executionContext) _PullRequestConnection_nodes(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.PullRequest)
+	res := resTmp.([]*PullRequest)
 	fc.Result = res
-	return ec.marshalOPullRequest2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequest(ctx, field.Selections, res)
+	return ec.marshalOPullRequest2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐPullRequest(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_PullRequestConnection_nodes(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3798,7 +3797,7 @@ func (ec *executionContext) fieldContext_PullRequestConnection_nodes(ctx context
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequestConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *model.PullRequestConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequestConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *PullRequestConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequestConnection_pageInfo(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3824,9 +3823,9 @@ func (ec *executionContext) _PullRequestConnection_pageInfo(ctx context.Context,
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.PageInfo)
+	res := resTmp.(*PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚐPageInfo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_PullRequestConnection_pageInfo(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3852,7 +3851,7 @@ func (ec *executionContext) fieldContext_PullRequestConnection_pageInfo(ctx cont
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequestConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *model.PullRequestConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequestConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *PullRequestConnection) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequestConnection_totalCount(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3896,7 +3895,7 @@ func (ec *executionContext) fieldContext_PullRequestConnection_totalCount(ctx co
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequestEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *model.PullRequestEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequestEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *PullRequestEdge) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequestEdge_cursor(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3940,7 +3939,7 @@ func (ec *executionContext) fieldContext_PullRequestEdge_cursor(ctx context.Cont
 	return fc, nil
 }
 
-func (ec *executionContext) _PullRequestEdge_node(ctx context.Context, field graphql.CollectedField, obj *model.PullRequestEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _PullRequestEdge_node(ctx context.Context, field graphql.CollectedField, obj *PullRequestEdge) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PullRequestEdge_node(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3963,9 +3962,9 @@ func (ec *executionContext) _PullRequestEdge_node(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.PullRequest)
+	res := resTmp.(*PullRequest)
 	fc.Result = res
-	return ec.marshalOPullRequest2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequest(ctx, field.Selections, res)
+	return ec.marshalOPullRequest2ᚖgqlgenᚑplaygroundᚋgraphᚐPullRequest(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_PullRequestEdge_node(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4022,9 +4021,9 @@ func (ec *executionContext) _Query_repository(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Repository)
+	res := resTmp.(*Repository)
 	fc.Result = res
-	return ec.marshalORepository2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐRepository(ctx, field.Selections, res)
+	return ec.marshalORepository2ᚖgqlgenᚑplaygroundᚋgraphᚐRepository(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_repository(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4100,10 +4099,10 @@ func (ec *executionContext) _Query_user(ctx context.Context, field graphql.Colle
 		if tmp == nil {
 			return nil, nil
 		}
-		if data, ok := tmp.(*model.User); ok {
+		if data, ok := tmp.(*User); ok {
 			return data, nil
 		}
-		return nil, fmt.Errorf(`unexpected type %T from directive, should be *gqlgen-playground/graph/model.User`, tmp)
+		return nil, fmt.Errorf(`unexpected type %T from directive, should be *gqlgen-playground/graph.User`, tmp)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4112,9 +4111,9 @@ func (ec *executionContext) _Query_user(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.User)
+	res := resTmp.(*User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgqlgenᚑplaygroundᚋgraphᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4174,9 +4173,9 @@ func (ec *executionContext) _Query_node(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(model.Node)
+	res := resTmp.(Node)
 	fc.Result = res
-	return ec.marshalONode2gqlgenᚑplaygroundᚋgraphᚋmodelᚐNode(ctx, field.Selections, res)
+	return ec.marshalONode2gqlgenᚑplaygroundᚋgraphᚐNode(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_node(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4332,7 +4331,7 @@ func (ec *executionContext) fieldContext_Query___schema(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _Repository_id(ctx context.Context, field graphql.CollectedField, obj *model.Repository) (ret graphql.Marshaler) {
+func (ec *executionContext) _Repository_id(ctx context.Context, field graphql.CollectedField, obj *Repository) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Repository_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4376,7 +4375,7 @@ func (ec *executionContext) fieldContext_Repository_id(ctx context.Context, fiel
 	return fc, nil
 }
 
-func (ec *executionContext) _Repository_owner(ctx context.Context, field graphql.CollectedField, obj *model.Repository) (ret graphql.Marshaler) {
+func (ec *executionContext) _Repository_owner(ctx context.Context, field graphql.CollectedField, obj *Repository) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Repository_owner(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4402,9 +4401,9 @@ func (ec *executionContext) _Repository_owner(ctx context.Context, field graphql
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.User)
+	res := resTmp.(*User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgqlgenᚑplaygroundᚋgraphᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Repository_owner(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4430,7 +4429,7 @@ func (ec *executionContext) fieldContext_Repository_owner(ctx context.Context, f
 	return fc, nil
 }
 
-func (ec *executionContext) _Repository_name(ctx context.Context, field graphql.CollectedField, obj *model.Repository) (ret graphql.Marshaler) {
+func (ec *executionContext) _Repository_name(ctx context.Context, field graphql.CollectedField, obj *Repository) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Repository_name(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4474,7 +4473,7 @@ func (ec *executionContext) fieldContext_Repository_name(ctx context.Context, fi
 	return fc, nil
 }
 
-func (ec *executionContext) _Repository_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Repository) (ret graphql.Marshaler) {
+func (ec *executionContext) _Repository_createdAt(ctx context.Context, field graphql.CollectedField, obj *Repository) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Repository_createdAt(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4518,7 +4517,7 @@ func (ec *executionContext) fieldContext_Repository_createdAt(ctx context.Contex
 	return fc, nil
 }
 
-func (ec *executionContext) _Repository_issue(ctx context.Context, field graphql.CollectedField, obj *model.Repository) (ret graphql.Marshaler) {
+func (ec *executionContext) _Repository_issue(ctx context.Context, field graphql.CollectedField, obj *Repository) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Repository_issue(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4541,9 +4540,9 @@ func (ec *executionContext) _Repository_issue(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Issue)
+	res := resTmp.(*Issue)
 	fc.Result = res
-	return ec.marshalOIssue2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssue(ctx, field.Selections, res)
+	return ec.marshalOIssue2ᚖgqlgenᚑplaygroundᚋgraphᚐIssue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Repository_issue(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4588,7 +4587,7 @@ func (ec *executionContext) fieldContext_Repository_issue(ctx context.Context, f
 	return fc, nil
 }
 
-func (ec *executionContext) _Repository_issues(ctx context.Context, field graphql.CollectedField, obj *model.Repository) (ret graphql.Marshaler) {
+func (ec *executionContext) _Repository_issues(ctx context.Context, field graphql.CollectedField, obj *Repository) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Repository_issues(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4614,9 +4613,9 @@ func (ec *executionContext) _Repository_issues(ctx context.Context, field graphq
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.IssueConnection)
+	res := resTmp.(*IssueConnection)
 	fc.Result = res
-	return ec.marshalNIssueConnection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssueConnection(ctx, field.Selections, res)
+	return ec.marshalNIssueConnection2ᚖgqlgenᚑplaygroundᚋgraphᚐIssueConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Repository_issues(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4653,7 +4652,7 @@ func (ec *executionContext) fieldContext_Repository_issues(ctx context.Context, 
 	return fc, nil
 }
 
-func (ec *executionContext) _Repository_pullRequest(ctx context.Context, field graphql.CollectedField, obj *model.Repository) (ret graphql.Marshaler) {
+func (ec *executionContext) _Repository_pullRequest(ctx context.Context, field graphql.CollectedField, obj *Repository) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Repository_pullRequest(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4676,9 +4675,9 @@ func (ec *executionContext) _Repository_pullRequest(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.PullRequest)
+	res := resTmp.(*PullRequest)
 	fc.Result = res
-	return ec.marshalOPullRequest2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequest(ctx, field.Selections, res)
+	return ec.marshalOPullRequest2ᚖgqlgenᚑplaygroundᚋgraphᚐPullRequest(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Repository_pullRequest(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4723,7 +4722,7 @@ func (ec *executionContext) fieldContext_Repository_pullRequest(ctx context.Cont
 	return fc, nil
 }
 
-func (ec *executionContext) _Repository_pullRequests(ctx context.Context, field graphql.CollectedField, obj *model.Repository) (ret graphql.Marshaler) {
+func (ec *executionContext) _Repository_pullRequests(ctx context.Context, field graphql.CollectedField, obj *Repository) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Repository_pullRequests(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4749,9 +4748,9 @@ func (ec *executionContext) _Repository_pullRequests(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.PullRequestConnection)
+	res := resTmp.(*PullRequestConnection)
 	fc.Result = res
-	return ec.marshalNPullRequestConnection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequestConnection(ctx, field.Selections, res)
+	return ec.marshalNPullRequestConnection2ᚖgqlgenᚑplaygroundᚋgraphᚐPullRequestConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Repository_pullRequests(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4788,7 +4787,7 @@ func (ec *executionContext) fieldContext_Repository_pullRequests(ctx context.Con
 	return fc, nil
 }
 
-func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4832,7 +4831,7 @@ func (ec *executionContext) fieldContext_User_id(ctx context.Context, field grap
 	return fc, nil
 }
 
-func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_name(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4876,7 +4875,7 @@ func (ec *executionContext) fieldContext_User_name(ctx context.Context, field gr
 	return fc, nil
 }
 
-func (ec *executionContext) _User_projectV2(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_projectV2(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_projectV2(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4899,9 +4898,9 @@ func (ec *executionContext) _User_projectV2(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.ProjectV2)
+	res := resTmp.(*ProjectV2)
 	fc.Result = res
-	return ec.marshalOProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2(ctx, field.Selections, res)
+	return ec.marshalOProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_projectV2(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -4942,7 +4941,7 @@ func (ec *executionContext) fieldContext_User_projectV2(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _User_projectV2s(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_projectV2s(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_projectV2s(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -4968,9 +4967,9 @@ func (ec *executionContext) _User_projectV2s(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.ProjectV2Connection)
+	res := resTmp.(*ProjectV2Connection)
 	fc.Result = res
-	return ec.marshalNProjectV2Connection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Connection(ctx, field.Selections, res)
+	return ec.marshalNProjectV2Connection2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Connection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_projectV2s(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -6780,8 +6779,8 @@ func (ec *executionContext) fieldContext___Type_specifiedByURL(ctx context.Conte
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputAddProjectV2ItemByIdInput(ctx context.Context, obj interface{}) (model.AddProjectV2ItemByIDInput, error) {
-	var it model.AddProjectV2ItemByIDInput
+func (ec *executionContext) unmarshalInputAddProjectV2ItemByIdInput(ctx context.Context, obj interface{}) (AddProjectV2ItemByIDInput, error) {
+	var it AddProjectV2ItemByIDInput
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -6822,48 +6821,48 @@ func (ec *executionContext) unmarshalInputAddProjectV2ItemByIdInput(ctx context.
 
 // region    ************************** interface.gotpl ***************************
 
-func (ec *executionContext) _Node(ctx context.Context, sel ast.SelectionSet, obj model.Node) graphql.Marshaler {
+func (ec *executionContext) _Node(ctx context.Context, sel ast.SelectionSet, obj Node) graphql.Marshaler {
 	switch obj := (obj).(type) {
 	case nil:
 		return graphql.Null
-	case model.Repository:
+	case Repository:
 		return ec._Repository(ctx, sel, &obj)
-	case *model.Repository:
+	case *Repository:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._Repository(ctx, sel, obj)
-	case model.User:
+	case User:
 		return ec._User(ctx, sel, &obj)
-	case *model.User:
+	case *User:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._User(ctx, sel, obj)
-	case model.Issue:
+	case Issue:
 		return ec._Issue(ctx, sel, &obj)
-	case *model.Issue:
+	case *Issue:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._Issue(ctx, sel, obj)
-	case model.PullRequest:
+	case PullRequest:
 		return ec._PullRequest(ctx, sel, &obj)
-	case *model.PullRequest:
+	case *PullRequest:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._PullRequest(ctx, sel, obj)
-	case model.ProjectV2:
+	case ProjectV2:
 		return ec._ProjectV2(ctx, sel, &obj)
-	case *model.ProjectV2:
+	case *ProjectV2:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._ProjectV2(ctx, sel, obj)
-	case model.ProjectV2Item:
+	case ProjectV2Item:
 		return ec._ProjectV2Item(ctx, sel, &obj)
-	case *model.ProjectV2Item:
+	case *ProjectV2Item:
 		if obj == nil {
 			return graphql.Null
 		}
@@ -6873,20 +6872,20 @@ func (ec *executionContext) _Node(ctx context.Context, sel ast.SelectionSet, obj
 	}
 }
 
-func (ec *executionContext) _ProjectV2ItemContent(ctx context.Context, sel ast.SelectionSet, obj model.ProjectV2ItemContent) graphql.Marshaler {
+func (ec *executionContext) _ProjectV2ItemContent(ctx context.Context, sel ast.SelectionSet, obj ProjectV2ItemContent) graphql.Marshaler {
 	switch obj := (obj).(type) {
 	case nil:
 		return graphql.Null
-	case model.Issue:
+	case Issue:
 		return ec._Issue(ctx, sel, &obj)
-	case *model.Issue:
+	case *Issue:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._Issue(ctx, sel, obj)
-	case model.PullRequest:
+	case PullRequest:
 		return ec._PullRequest(ctx, sel, &obj)
-	case *model.PullRequest:
+	case *PullRequest:
 		if obj == nil {
 			return graphql.Null
 		}
@@ -6902,7 +6901,7 @@ func (ec *executionContext) _ProjectV2ItemContent(ctx context.Context, sel ast.S
 
 var addProjectV2ItemByIdPayloadImplementors = []string{"AddProjectV2ItemByIdPayload"}
 
-func (ec *executionContext) _AddProjectV2ItemByIdPayload(ctx context.Context, sel ast.SelectionSet, obj *model.AddProjectV2ItemByIDPayload) graphql.Marshaler {
+func (ec *executionContext) _AddProjectV2ItemByIdPayload(ctx context.Context, sel ast.SelectionSet, obj *AddProjectV2ItemByIDPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, addProjectV2ItemByIdPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -6938,7 +6937,7 @@ func (ec *executionContext) _AddProjectV2ItemByIdPayload(ctx context.Context, se
 
 var issueImplementors = []string{"Issue", "Node", "ProjectV2ItemContent"}
 
-func (ec *executionContext) _Issue(ctx context.Context, sel ast.SelectionSet, obj *model.Issue) graphql.Marshaler {
+func (ec *executionContext) _Issue(ctx context.Context, sel ast.SelectionSet, obj *Issue) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, issueImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7012,7 +7011,7 @@ func (ec *executionContext) _Issue(ctx context.Context, sel ast.SelectionSet, ob
 
 var issueConnectionImplementors = []string{"IssueConnection"}
 
-func (ec *executionContext) _IssueConnection(ctx context.Context, sel ast.SelectionSet, obj *model.IssueConnection) graphql.Marshaler {
+func (ec *executionContext) _IssueConnection(ctx context.Context, sel ast.SelectionSet, obj *IssueConnection) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, issueConnectionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7060,7 +7059,7 @@ func (ec *executionContext) _IssueConnection(ctx context.Context, sel ast.Select
 
 var issueEdgeImplementors = []string{"IssueEdge"}
 
-func (ec *executionContext) _IssueEdge(ctx context.Context, sel ast.SelectionSet, obj *model.IssueEdge) graphql.Marshaler {
+func (ec *executionContext) _IssueEdge(ctx context.Context, sel ast.SelectionSet, obj *IssueEdge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, issueEdgeImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7147,7 +7146,7 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 
 var pageInfoImplementors = []string{"PageInfo"}
 
-func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet, obj *model.PageInfo) graphql.Marshaler {
+func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet, obj *PageInfo) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pageInfoImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7195,7 +7194,7 @@ func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet,
 
 var projectV2Implementors = []string{"ProjectV2", "Node"}
 
-func (ec *executionContext) _ProjectV2(ctx context.Context, sel ast.SelectionSet, obj *model.ProjectV2) graphql.Marshaler {
+func (ec *executionContext) _ProjectV2(ctx context.Context, sel ast.SelectionSet, obj *ProjectV2) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectV2Implementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7259,7 +7258,7 @@ func (ec *executionContext) _ProjectV2(ctx context.Context, sel ast.SelectionSet
 
 var projectV2ConnectionImplementors = []string{"ProjectV2Connection"}
 
-func (ec *executionContext) _ProjectV2Connection(ctx context.Context, sel ast.SelectionSet, obj *model.ProjectV2Connection) graphql.Marshaler {
+func (ec *executionContext) _ProjectV2Connection(ctx context.Context, sel ast.SelectionSet, obj *ProjectV2Connection) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectV2ConnectionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7307,7 +7306,7 @@ func (ec *executionContext) _ProjectV2Connection(ctx context.Context, sel ast.Se
 
 var projectV2EdgeImplementors = []string{"ProjectV2Edge"}
 
-func (ec *executionContext) _ProjectV2Edge(ctx context.Context, sel ast.SelectionSet, obj *model.ProjectV2Edge) graphql.Marshaler {
+func (ec *executionContext) _ProjectV2Edge(ctx context.Context, sel ast.SelectionSet, obj *ProjectV2Edge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectV2EdgeImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7348,7 +7347,7 @@ func (ec *executionContext) _ProjectV2Edge(ctx context.Context, sel ast.Selectio
 
 var projectV2ItemImplementors = []string{"ProjectV2Item", "Node"}
 
-func (ec *executionContext) _ProjectV2Item(ctx context.Context, sel ast.SelectionSet, obj *model.ProjectV2Item) graphql.Marshaler {
+func (ec *executionContext) _ProjectV2Item(ctx context.Context, sel ast.SelectionSet, obj *ProjectV2Item) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectV2ItemImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7394,7 +7393,7 @@ func (ec *executionContext) _ProjectV2Item(ctx context.Context, sel ast.Selectio
 
 var projectV2ItemConnectionImplementors = []string{"ProjectV2ItemConnection"}
 
-func (ec *executionContext) _ProjectV2ItemConnection(ctx context.Context, sel ast.SelectionSet, obj *model.ProjectV2ItemConnection) graphql.Marshaler {
+func (ec *executionContext) _ProjectV2ItemConnection(ctx context.Context, sel ast.SelectionSet, obj *ProjectV2ItemConnection) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectV2ItemConnectionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7442,7 +7441,7 @@ func (ec *executionContext) _ProjectV2ItemConnection(ctx context.Context, sel as
 
 var projectV2ItemEdgeImplementors = []string{"ProjectV2ItemEdge"}
 
-func (ec *executionContext) _ProjectV2ItemEdge(ctx context.Context, sel ast.SelectionSet, obj *model.ProjectV2ItemEdge) graphql.Marshaler {
+func (ec *executionContext) _ProjectV2ItemEdge(ctx context.Context, sel ast.SelectionSet, obj *ProjectV2ItemEdge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectV2ItemEdgeImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7483,7 +7482,7 @@ func (ec *executionContext) _ProjectV2ItemEdge(ctx context.Context, sel ast.Sele
 
 var pullRequestImplementors = []string{"PullRequest", "Node", "ProjectV2ItemContent"}
 
-func (ec *executionContext) _PullRequest(ctx context.Context, sel ast.SelectionSet, obj *model.PullRequest) graphql.Marshaler {
+func (ec *executionContext) _PullRequest(ctx context.Context, sel ast.SelectionSet, obj *PullRequest) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pullRequestImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7557,7 +7556,7 @@ func (ec *executionContext) _PullRequest(ctx context.Context, sel ast.SelectionS
 
 var pullRequestConnectionImplementors = []string{"PullRequestConnection"}
 
-func (ec *executionContext) _PullRequestConnection(ctx context.Context, sel ast.SelectionSet, obj *model.PullRequestConnection) graphql.Marshaler {
+func (ec *executionContext) _PullRequestConnection(ctx context.Context, sel ast.SelectionSet, obj *PullRequestConnection) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pullRequestConnectionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7605,7 +7604,7 @@ func (ec *executionContext) _PullRequestConnection(ctx context.Context, sel ast.
 
 var pullRequestEdgeImplementors = []string{"PullRequestEdge"}
 
-func (ec *executionContext) _PullRequestEdge(ctx context.Context, sel ast.SelectionSet, obj *model.PullRequestEdge) graphql.Marshaler {
+func (ec *executionContext) _PullRequestEdge(ctx context.Context, sel ast.SelectionSet, obj *PullRequestEdge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pullRequestEdgeImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7753,7 +7752,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 
 var repositoryImplementors = []string{"Repository", "Node"}
 
-func (ec *executionContext) _Repository(ctx context.Context, sel ast.SelectionSet, obj *model.Repository) graphql.Marshaler {
+func (ec *executionContext) _Repository(ctx context.Context, sel ast.SelectionSet, obj *Repository) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, repositoryImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -7821,7 +7820,7 @@ func (ec *executionContext) _Repository(ctx context.Context, sel ast.SelectionSe
 
 var userImplementors = []string{"User", "Node"}
 
-func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *model.User) graphql.Marshaler {
+func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *User) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, userImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -8196,7 +8195,7 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) unmarshalNAddProjectV2ItemByIdInput2gqlgenᚑplaygroundᚋgraphᚋmodelᚐAddProjectV2ItemByIDInput(ctx context.Context, v interface{}) (model.AddProjectV2ItemByIDInput, error) {
+func (ec *executionContext) unmarshalNAddProjectV2ItemByIdInput2gqlgenᚑplaygroundᚋgraphᚐAddProjectV2ItemByIDInput(ctx context.Context, v interface{}) (AddProjectV2ItemByIDInput, error) {
 	res, err := ec.unmarshalInputAddProjectV2ItemByIdInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -8261,7 +8260,7 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
-func (ec *executionContext) marshalNIssueConnection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssueConnection(ctx context.Context, sel ast.SelectionSet, v *model.IssueConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNIssueConnection2ᚖgqlgenᚑplaygroundᚋgraphᚐIssueConnection(ctx context.Context, sel ast.SelectionSet, v *IssueConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -8271,7 +8270,7 @@ func (ec *executionContext) marshalNIssueConnection2ᚖgqlgenᚑplaygroundᚋgra
 	return ec._IssueConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *model.PageInfo) graphql.Marshaler {
+func (ec *executionContext) marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *PageInfo) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -8281,7 +8280,7 @@ func (ec *executionContext) marshalNPageInfo2ᚖgqlgenᚑplaygroundᚋgraphᚋmo
 	return ec._PageInfo(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2(ctx context.Context, sel ast.SelectionSet, v *model.ProjectV2) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2(ctx context.Context, sel ast.SelectionSet, v *ProjectV2) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -8291,7 +8290,7 @@ func (ec *executionContext) marshalNProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚋm
 	return ec._ProjectV2(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNProjectV2Connection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Connection(ctx context.Context, sel ast.SelectionSet, v *model.ProjectV2Connection) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectV2Connection2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Connection(ctx context.Context, sel ast.SelectionSet, v *ProjectV2Connection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -8301,7 +8300,7 @@ func (ec *executionContext) marshalNProjectV2Connection2ᚖgqlgenᚑplayground�
 	return ec._ProjectV2Connection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNProjectV2ItemConnection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemConnection(ctx context.Context, sel ast.SelectionSet, v *model.ProjectV2ItemConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectV2ItemConnection2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2ItemConnection(ctx context.Context, sel ast.SelectionSet, v *ProjectV2ItemConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -8311,7 +8310,7 @@ func (ec *executionContext) marshalNProjectV2ItemConnection2ᚖgqlgenᚑplaygrou
 	return ec._ProjectV2ItemConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPullRequestConnection2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequestConnection(ctx context.Context, sel ast.SelectionSet, v *model.PullRequestConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNPullRequestConnection2ᚖgqlgenᚑplaygroundᚋgraphᚐPullRequestConnection(ctx context.Context, sel ast.SelectionSet, v *PullRequestConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -8321,7 +8320,7 @@ func (ec *executionContext) marshalNPullRequestConnection2ᚖgqlgenᚑplayground
 	return ec._PullRequestConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNRepository2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐRepository(ctx context.Context, sel ast.SelectionSet, v *model.Repository) graphql.Marshaler {
+func (ec *executionContext) marshalNRepository2ᚖgqlgenᚑplaygroundᚋgraphᚐRepository(ctx context.Context, sel ast.SelectionSet, v *Repository) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -8361,7 +8360,7 @@ func (ec *executionContext) marshalNURI2string(ctx context.Context, sel ast.Sele
 	return res
 }
 
-func (ec *executionContext) marshalNUser2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgqlgenᚑplaygroundᚋgraphᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -8624,7 +8623,7 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) marshalOAddProjectV2ItemByIdPayload2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐAddProjectV2ItemByIDPayload(ctx context.Context, sel ast.SelectionSet, v *model.AddProjectV2ItemByIDPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOAddProjectV2ItemByIdPayload2ᚖgqlgenᚑplaygroundᚋgraphᚐAddProjectV2ItemByIDPayload(ctx context.Context, sel ast.SelectionSet, v *AddProjectV2ItemByIDPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -8673,7 +8672,7 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	return res
 }
 
-func (ec *executionContext) marshalOIssue2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssue(ctx context.Context, sel ast.SelectionSet, v []*model.Issue) graphql.Marshaler {
+func (ec *executionContext) marshalOIssue2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐIssue(ctx context.Context, sel ast.SelectionSet, v []*Issue) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -8700,7 +8699,7 @@ func (ec *executionContext) marshalOIssue2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmo
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOIssue2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssue(ctx, sel, v[i])
+			ret[i] = ec.marshalOIssue2ᚖgqlgenᚑplaygroundᚋgraphᚐIssue(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -8714,14 +8713,14 @@ func (ec *executionContext) marshalOIssue2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmo
 	return ret
 }
 
-func (ec *executionContext) marshalOIssue2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssue(ctx context.Context, sel ast.SelectionSet, v *model.Issue) graphql.Marshaler {
+func (ec *executionContext) marshalOIssue2ᚖgqlgenᚑplaygroundᚋgraphᚐIssue(ctx context.Context, sel ast.SelectionSet, v *Issue) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Issue(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOIssueEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssueEdge(ctx context.Context, sel ast.SelectionSet, v []*model.IssueEdge) graphql.Marshaler {
+func (ec *executionContext) marshalOIssueEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐIssueEdge(ctx context.Context, sel ast.SelectionSet, v []*IssueEdge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -8748,7 +8747,7 @@ func (ec *executionContext) marshalOIssueEdge2ᚕᚖgqlgenᚑplaygroundᚋgraph�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOIssueEdge2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssueEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalOIssueEdge2ᚖgqlgenᚑplaygroundᚋgraphᚐIssueEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -8762,21 +8761,21 @@ func (ec *executionContext) marshalOIssueEdge2ᚕᚖgqlgenᚑplaygroundᚋgraph�
 	return ret
 }
 
-func (ec *executionContext) marshalOIssueEdge2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐIssueEdge(ctx context.Context, sel ast.SelectionSet, v *model.IssueEdge) graphql.Marshaler {
+func (ec *executionContext) marshalOIssueEdge2ᚖgqlgenᚑplaygroundᚋgraphᚐIssueEdge(ctx context.Context, sel ast.SelectionSet, v *IssueEdge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._IssueEdge(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalONode2gqlgenᚑplaygroundᚋgraphᚋmodelᚐNode(ctx context.Context, sel ast.SelectionSet, v model.Node) graphql.Marshaler {
+func (ec *executionContext) marshalONode2gqlgenᚑplaygroundᚋgraphᚐNode(ctx context.Context, sel ast.SelectionSet, v Node) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Node(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOProjectV22ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2(ctx context.Context, sel ast.SelectionSet, v []*model.ProjectV2) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectV22ᚕᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2(ctx context.Context, sel ast.SelectionSet, v []*ProjectV2) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -8803,7 +8802,7 @@ func (ec *executionContext) marshalOProjectV22ᚕᚖgqlgenᚑplaygroundᚋgraph�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2(ctx, sel, v[i])
+			ret[i] = ec.marshalOProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -8817,14 +8816,14 @@ func (ec *executionContext) marshalOProjectV22ᚕᚖgqlgenᚑplaygroundᚋgraph�
 	return ret
 }
 
-func (ec *executionContext) marshalOProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2(ctx context.Context, sel ast.SelectionSet, v *model.ProjectV2) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectV22ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2(ctx context.Context, sel ast.SelectionSet, v *ProjectV2) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ProjectV2(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOProjectV2Edge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Edge(ctx context.Context, sel ast.SelectionSet, v []*model.ProjectV2Edge) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectV2Edge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Edge(ctx context.Context, sel ast.SelectionSet, v []*ProjectV2Edge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -8851,7 +8850,7 @@ func (ec *executionContext) marshalOProjectV2Edge2ᚕᚖgqlgenᚑplaygroundᚋgr
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOProjectV2Edge2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Edge(ctx, sel, v[i])
+			ret[i] = ec.marshalOProjectV2Edge2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Edge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -8865,14 +8864,14 @@ func (ec *executionContext) marshalOProjectV2Edge2ᚕᚖgqlgenᚑplaygroundᚋgr
 	return ret
 }
 
-func (ec *executionContext) marshalOProjectV2Edge2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Edge(ctx context.Context, sel ast.SelectionSet, v *model.ProjectV2Edge) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectV2Edge2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Edge(ctx context.Context, sel ast.SelectionSet, v *ProjectV2Edge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ProjectV2Edge(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOProjectV2Item2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Item(ctx context.Context, sel ast.SelectionSet, v []*model.ProjectV2Item) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectV2Item2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Item(ctx context.Context, sel ast.SelectionSet, v []*ProjectV2Item) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -8899,7 +8898,7 @@ func (ec *executionContext) marshalOProjectV2Item2ᚕᚖgqlgenᚑplaygroundᚋgr
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOProjectV2Item2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Item(ctx, sel, v[i])
+			ret[i] = ec.marshalOProjectV2Item2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Item(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -8913,21 +8912,21 @@ func (ec *executionContext) marshalOProjectV2Item2ᚕᚖgqlgenᚑplaygroundᚋgr
 	return ret
 }
 
-func (ec *executionContext) marshalOProjectV2Item2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2Item(ctx context.Context, sel ast.SelectionSet, v *model.ProjectV2Item) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectV2Item2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2Item(ctx context.Context, sel ast.SelectionSet, v *ProjectV2Item) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ProjectV2Item(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOProjectV2ItemContent2gqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemContent(ctx context.Context, sel ast.SelectionSet, v model.ProjectV2ItemContent) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectV2ItemContent2gqlgenᚑplaygroundᚋgraphᚐProjectV2ItemContent(ctx context.Context, sel ast.SelectionSet, v ProjectV2ItemContent) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ProjectV2ItemContent(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOProjectV2ItemEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemEdge(ctx context.Context, sel ast.SelectionSet, v []*model.ProjectV2ItemEdge) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectV2ItemEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2ItemEdge(ctx context.Context, sel ast.SelectionSet, v []*ProjectV2ItemEdge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -8954,7 +8953,7 @@ func (ec *executionContext) marshalOProjectV2ItemEdge2ᚕᚖgqlgenᚑplayground�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOProjectV2ItemEdge2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalOProjectV2ItemEdge2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2ItemEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -8968,14 +8967,14 @@ func (ec *executionContext) marshalOProjectV2ItemEdge2ᚕᚖgqlgenᚑplayground�
 	return ret
 }
 
-func (ec *executionContext) marshalOProjectV2ItemEdge2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐProjectV2ItemEdge(ctx context.Context, sel ast.SelectionSet, v *model.ProjectV2ItemEdge) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectV2ItemEdge2ᚖgqlgenᚑplaygroundᚋgraphᚐProjectV2ItemEdge(ctx context.Context, sel ast.SelectionSet, v *ProjectV2ItemEdge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ProjectV2ItemEdge(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPullRequest2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequest(ctx context.Context, sel ast.SelectionSet, v []*model.PullRequest) graphql.Marshaler {
+func (ec *executionContext) marshalOPullRequest2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐPullRequest(ctx context.Context, sel ast.SelectionSet, v []*PullRequest) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -9002,7 +9001,7 @@ func (ec *executionContext) marshalOPullRequest2ᚕᚖgqlgenᚑplaygroundᚋgrap
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOPullRequest2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequest(ctx, sel, v[i])
+			ret[i] = ec.marshalOPullRequest2ᚖgqlgenᚑplaygroundᚋgraphᚐPullRequest(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -9016,14 +9015,14 @@ func (ec *executionContext) marshalOPullRequest2ᚕᚖgqlgenᚑplaygroundᚋgrap
 	return ret
 }
 
-func (ec *executionContext) marshalOPullRequest2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequest(ctx context.Context, sel ast.SelectionSet, v *model.PullRequest) graphql.Marshaler {
+func (ec *executionContext) marshalOPullRequest2ᚖgqlgenᚑplaygroundᚋgraphᚐPullRequest(ctx context.Context, sel ast.SelectionSet, v *PullRequest) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PullRequest(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPullRequestEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequestEdge(ctx context.Context, sel ast.SelectionSet, v []*model.PullRequestEdge) graphql.Marshaler {
+func (ec *executionContext) marshalOPullRequestEdge2ᚕᚖgqlgenᚑplaygroundᚋgraphᚐPullRequestEdge(ctx context.Context, sel ast.SelectionSet, v []*PullRequestEdge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -9050,7 +9049,7 @@ func (ec *executionContext) marshalOPullRequestEdge2ᚕᚖgqlgenᚑplaygroundᚋ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOPullRequestEdge2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequestEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalOPullRequestEdge2ᚖgqlgenᚑplaygroundᚋgraphᚐPullRequestEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -9064,14 +9063,14 @@ func (ec *executionContext) marshalOPullRequestEdge2ᚕᚖgqlgenᚑplaygroundᚋ
 	return ret
 }
 
-func (ec *executionContext) marshalOPullRequestEdge2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐPullRequestEdge(ctx context.Context, sel ast.SelectionSet, v *model.PullRequestEdge) graphql.Marshaler {
+func (ec *executionContext) marshalOPullRequestEdge2ᚖgqlgenᚑplaygroundᚋgraphᚐPullRequestEdge(ctx context.Context, sel ast.SelectionSet, v *PullRequestEdge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PullRequestEdge(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalORepository2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐRepository(ctx context.Context, sel ast.SelectionSet, v *model.Repository) graphql.Marshaler {
+func (ec *executionContext) marshalORepository2ᚖgqlgenᚑplaygroundᚋgraphᚐRepository(ctx context.Context, sel ast.SelectionSet, v *Repository) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -9094,7 +9093,7 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return res
 }
 
-func (ec *executionContext) marshalOUser2ᚖgqlgenᚑplaygroundᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖgqlgenᚑplaygroundᚋgraphᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
