@@ -10,7 +10,7 @@ run:
 
 .PHONY: compose.up
 compose.up:
-	@docker compose up
+	@docker compose up -d
 
 .PHONY: compose.down
 compose.down:
