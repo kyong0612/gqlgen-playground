@@ -1,2 +1,3 @@
-# gqlgen-demo
-https://gqlgen.com/getting-started/
+# gqlgen-playground
+
+<https://gqlgen.com/getting-started/>
