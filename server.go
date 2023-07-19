@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"gqlgen-playground/graph"
+	"gqlgen-playground/graph/directive"
 	"gqlgen-playground/graph/gql"
 	"gqlgen-playground/service"
 	"log"
@@ -49,9 +50,15 @@ func main() {
 
 	service := service.New(db)
 
-	srv := handler.NewDefaultServer(gql.NewExecutableSchema(gql.Config{Resolvers: &graph.Resolver{
-		Service: service,
-	}}))
+	srv := handler.NewDefaultServer(gql.NewExecutableSchema(
+		gql.Config{
+			Resolvers: &graph.Resolver{
+				Service: service,
+			},
+			Directives: gql.DirectiveRoot{
+				IsAuthenticated: directive.IsAuthenticated,
+			},
+		}))
 
 	http.Handle("/", playground.ApolloSandboxHandler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
