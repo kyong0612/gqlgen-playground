@@ -54,6 +54,7 @@ func main() {
 		gql.Config{
 			Resolvers: &graph.Resolver{
 				Service: service,
+				Loaders: graph.NewLoaders(service),
 			},
 			Directives: gql.DirectiveRoot{
 				IsAuthenticated: directive.IsAuthenticated,

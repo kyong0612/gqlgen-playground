@@ -10,6 +10,18 @@ import (
 	"gqlgen-playground/graph/gql"
 )
 
+// Author is the resolver for the author field.
+func (r *issueResolver) Author(ctx context.Context, obj *gql.Issue) (*gql.User, error) {
+	// 1. Loaderに検索条件となるIDを登録(この時点では即時実行されない)
+	thunk := r.Loaders.UserLoader.Load(ctx, obj.Author.ID)
+	// 2. LoaderがDBに対してデータ取得処理を実行するまで待って、結果を受け取る
+	user, err := thunk()
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
 // AddProjectV2ItemByID is the resolver for the addProjectV2ItemById field.
 func (r *mutationResolver) AddProjectV2ItemByID(ctx context.Context, input gql.AddProjectV2ItemByIDInput) (*gql.AddProjectV2ItemByIDPayload, error) {
 	panic(fmt.Errorf("not implemented: AddProjectV2ItemByID - addProjectV2ItemById"))
@@ -60,6 +72,9 @@ func (r *repositoryResolver) PullRequests(ctx context.Context, obj *gql.Reposito
 	panic(fmt.Errorf("not implemented: PullRequests - pullRequests"))
 }
 
+// Issue returns gql.IssueResolver implementation.
+func (r *Resolver) Issue() gql.IssueResolver { return &issueResolver{r} }
+
 // Mutation returns gql.MutationResolver implementation.
 func (r *Resolver) Mutation() gql.MutationResolver { return &mutationResolver{r} }
 
@@ -72,6 +87,7 @@ func (r *Resolver) Query() gql.QueryResolver { return &queryResolver{r} }
 // Repository returns gql.RepositoryResolver implementation.
 func (r *Resolver) Repository() gql.RepositoryResolver { return &repositoryResolver{r} }
 
+type issueResolver struct{ *Resolver }
 type mutationResolver struct{ *Resolver }
 type projectV2Resolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }

@@ -4,7 +4,6 @@ import "github.com/volatiletech/sqlboiler/v4/boil"
 
 type Services interface {
 	UserService
-	// issueテーブルを扱うIssueServiceなど、他のサービスインターフェースができたらそれらを追加していく
 }
 
 type services struct {

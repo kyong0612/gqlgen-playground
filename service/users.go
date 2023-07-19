@@ -11,6 +11,7 @@ import (
 
 type UserService interface {
 	GetUserByName(ctx context.Context, name string) (*gql.User, error)
+	ListUsersByID(ctx context.Context, IDs []string) ([]*gql.User, error)
 }
 
 type userService struct {
@@ -36,4 +37,24 @@ func (u *userService) GetUserByName(ctx context.Context, name string) (*gql.User
 	}
 	// 3. 戻り値の*model.User型を作る
 	return convertUser(user), nil
+}
+
+// サービス層内に実装された、IN句を用いた取得処理
+func (u *userService) ListUsersByID(ctx context.Context, IDs []string) ([]*gql.User, error) {
+	users, err := models.Users(
+		qm.Select(models.UserTableColumns.ID, models.UserTableColumns.Name),
+		models.UserWhere.ID.IN(IDs),
+	).All(ctx, u.exec)
+	if err != nil {
+		return nil, err
+	}
+	return convertUserSlice(users), nil
+}
+
+func convertUserSlice(users models.UserSlice) []*gql.User {
+	result := make([]*gql.User, 0, len(users))
+	for _, user := range users {
+		result = append(result, convertUser(user))
+	}
+	return result
 }

@@ -8,4 +8,5 @@ import "gqlgen-playground/service"
 
 type Resolver struct {
 	Service service.Services
+	*Loaders
 }
