@@ -1,7 +1,6 @@
 directive @isAuthenticated on FIELD_DEFINITION
 
 scalar DateTime
-
 scalar URI
 
 interface Node {
