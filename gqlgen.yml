@@ -17,6 +17,7 @@ model:
   filename: graph/gql/models_gen.go
   package: gql
 
+
 # Where should the resolver implementations go?
 resolver:
   layout: follow-schema
@@ -60,3 +61,20 @@ models:
   URI:
     model:
       - gqlgen-playground/graph/scalar.URL
+
+  Repository:
+    fields:
+      owner:
+        resolver: true
+      issue:
+        resolver: true
+      issues:
+        resolver: true
+      pullRequest:
+        resolver: true
+      pullRequests:
+        resolver: true
+  ProjectV2:
+    fields:
+      owner:
+        resolver: true
